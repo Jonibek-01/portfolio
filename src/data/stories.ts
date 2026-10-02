@@ -24,14 +24,13 @@
 //     link: "https://www.instagram.com/reel/XXXXXXXX/",
 //   },
 // =====================================================
-import type { LText } from "../i18n/localize";
 
 export interface Story {
   id: string;
-  title: { en: "Afghanistan briefing"; uz: "Afgʻoniston brifingi" };
+  title: { en: string; uz: string };
   cover?: string;
   video?: string;
-  link?: "https://www.youtube.com/shorts/10-jy_d2I4Q";
+  link?: string;
 }
 
-export const stories: Story[] = [];
+export const stories: Story[] = []; 
