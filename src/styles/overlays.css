@@ -1,0 +1,61 @@
+/* =====================================================
+   OVERLAYS: publication modal, global search, mobile menu
+   ===================================================== */
+
+/* ---------- Modal (centered card on desktop, bottom sheet on mobile) ---------- */
+.modal-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(4, 6, 12, 0.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.modal-panel { position: relative; width: min(100%, 780px); max-height: min(90vh, 820px); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line-strong); border-radius: var(--radius); background: linear-gradient(160deg, #0e1526, #080c16); box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.8); }
+.modal-panel.modal-media { width: min(100%, 880px); }
+.modal-panel::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent 70%); z-index: 2; }
+.modal-handle { display: none; flex-shrink: 0; width: 44px; height: 4px; margin: 10px auto 0; border-radius: 2px; background: var(--line-strong); }
+.modal-close { position: absolute; top: 14px; right: 14px; z-index: 3; background: rgba(7, 10, 18, 0.7); }
+.modal-scroll { overflow-y: auto; overscroll-behavior: contain; display: grid; gap: 20px; align-content: start; padding: clamp(26px, 5vw, 52px); padding-bottom: 24px; }
+.modal-title { font-size: clamp(1.9rem, 4.4vw, 3rem); padding-right: 44px; }
+.modal-platform { color: var(--text); opacity: 0.85; margin-top: -8px; }
+.modal-meta { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.modal-meta > div { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+.modal-meta dt { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); padding-top: 3px; }
+.modal-desc { color: var(--muted); font-size: 1.04rem; }
+.modal-actions { flex-shrink: 0; display: flex; padding: 16px clamp(26px, 5vw, 52px) 22px; border-top: 1px solid var(--line); background: rgba(8, 12, 22, 0.9); }
+.modal-media .modal-scroll { padding-top: clamp(26px, 4vw, 40px); }
+@media (max-width: 560px) {
+  .modal-overlay { padding: 0; align-items: end; }
+  .modal-panel, .modal-panel.modal-media { width: 100%; max-height: 92dvh; border-radius: 18px 18px 0 0; border-bottom: 0; }
+  .modal-handle { display: block; }
+  .modal-close { top: 10px; }
+  .modal-scroll { padding: 22px 20px 18px; gap: 16px; }
+  .modal-meta > div { grid-template-columns: 1fr; gap: 2px; }
+  .modal-actions { padding: 14px 20px calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .modal-actions .btn { width: 100%; }
+}
+
+/* ---------- Global search ---------- */
+.search-overlay { position: fixed; inset: 0; z-index: 110; background: rgba(5, 7, 13, 0.96); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); overflow-y: auto; }
+.search-panel { width: min(100%, 880px); margin-inline: auto; padding: clamp(24px, 8vh, 96px) var(--pad) 40px; min-height: 100%; display: flex; flex-direction: column; }
+.gs-bar { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--line-strong); padding-bottom: 14px; }
+.gs-icon { width: 26px; height: 26px; color: var(--gold); flex-shrink: 0; }
+.gs-input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; font-family: var(--font-display); font-size: clamp(1.6rem, 4.4vw, 2.8rem); padding: 6px 0; }
+.gs-input::placeholder { color: var(--faint); }
+.gs-input::-webkit-search-cancel-button { display: none; }
+.gs-results { margin-top: 28px; display: grid; gap: 30px; flex: 1; align-content: start; }
+.gs-empty { color: var(--muted); }
+.gs-group-title { font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 8px; }
+.gs-result { width: 100%; text-align: left; display: grid; gap: 4px; padding: 16px 16px; border: 1px solid transparent; border-bottom-color: var(--line); transition: background 0.25s, border-color 0.25s; }
+.gs-result.is-active { background: var(--panel-hover); border-color: var(--gold-soft); border-radius: var(--radius); }
+.gs-result-meta { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.gs-result-title { font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.2; }
+.gs-result-text { color: var(--muted); font-size: 0.88rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.gs-hints { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+@media (hover: none) { .gs-hints { display: none; } }
+
+/* ---------- Mobile menu ---------- */
+.menu-overlay { position: fixed; inset: 0; z-index: 120; background: var(--bg); overflow-y: auto; }
+.menu-overlay::before { content: ""; position: absolute; right: -30vw; top: -10vw; width: 90vw; height: 90vw; border-radius: 50%; border: 1px solid rgba(159, 180, 214, 0.1); box-shadow: inset 0 0 0 40px rgba(200, 169, 106, 0.02); pointer-events: none; }
+.menu-panel { position: relative; min-height: 100%; display: flex; flex-direction: column; padding: 18px var(--pad) 32px; gap: 20px; }
+.menu-top { display: flex; align-items: center; justify-content: space-between; height: 48px; }
+.menu-top-actions { display: flex; gap: 10px; }
+.menu-list { display: grid; gap: 2px; margin-top: 8px; }
+.menu-link { display: flex; align-items: baseline; gap: 18px; padding: 10px 0; font-family: var(--font-display); font-size: clamp(2.1rem, 9vw, 3.4rem); text-transform: uppercase; line-height: 1.1; border-bottom: 1px solid var(--line); transition: color 0.3s, padding 0.4s var(--ease); }
+.menu-link:hover, .menu-link.is-active { color: var(--gold); padding-left: 8px; }
+.menu-num { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--faint); }
+.menu-panel .social-row { margin-top: auto; padding-top: 24px; }
