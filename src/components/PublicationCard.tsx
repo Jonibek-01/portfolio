@@ -11,7 +11,7 @@ export default function PublicationCard({ publication: p }: { publication: Publi
     <article className="pub-card">
       <div className="pub-card-top">
         <span className="pub-category">{t.publications.categoryLabels[p.category]}</span>
-        <span className="pub-year">{getYear(p.date)}</span>
+        <span className="pub-year">{p.body && <span className="pub-badge">{t.publications.fullTextBadge}</span>}{getYear(p.date)}</span>
       </div>
       <h3 className="pub-title">
         {/* stretched button: the whole card opens the detail modal */}

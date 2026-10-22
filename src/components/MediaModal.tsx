@@ -25,7 +25,7 @@ function Body({ id, onClosed }: { id: string; onClosed: () => void }) {
   const close = useDialog(rootRef, panelRef, { onClosed, initialFocus: ".modal-close" });
 
   const video = parseVideo(item.video ?? item.url);
-  const playable = video && video.kind !== "link";
+  const playable = video && (video.kind === "youtube" || video.kind === "file");
   const poster = item.thumbnail || (video?.kind === "youtube" ? youtubeThumb(video.id) : "");
   const title = l(item.title);
 

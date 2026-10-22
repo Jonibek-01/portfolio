@@ -2,7 +2,8 @@
 export type VideoSource =
   | { kind: "youtube"; id: string; short?: boolean }
   | { kind: "file"; src: string }
-  | { kind: "link"; src: string }; // Instagram, Telegram, TikTok... cannot be embedded – shown as a link
+  | { kind: "instagram"; embed: string; src: string } // Instagram post / reel – shown through Instagram's own embed
+  | { kind: "link"; src: string }; // Telegram, TikTok... cannot be embedded – shown as a link
 
 const YT_ID = /^[\w-]{11}$/;
 
@@ -16,6 +17,10 @@ export function parseVideo(url?: string): VideoSource | null {
     if (host === "youtu.be") {
       const id = parsed.pathname.slice(1).split("/")[0];
       if (YT_ID.test(id)) return { kind: "youtube", id };
+    }
+    if (host.endsWith("instagram.com")) {
+      const m = parsed.pathname.match(/^\/(p|reel|reels|tv)\/([\w-]+)/);
+      if (m) return { kind: "instagram", embed: `https://www.instagram.com/${m[1] === "reels" ? "reel" : m[1]}/${m[2]}/embed/`, src: u };
     }
     if (host.endsWith("youtube.com") || host.endsWith("youtube-nocookie.com")) {
       const v = parsed.searchParams.get("v");

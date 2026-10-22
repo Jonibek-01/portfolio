@@ -61,6 +61,11 @@ search, category/year filters, topic filters and global search automatically.
 ```
 
 Set `featured: true` on one item to show it in the "Featured research" block.
+
+**Full article text (optional):** add `body: "..."` (or `{ en, uz }`) to an item. The card then gets a "Full text" badge and its
+detail view shows the whole article, scrollable, under the summary (paragraphs separated by a blank line, `## Heading` for
+sub-headings). Without `body` only the summary is shown. The starter list (21 items) comes from Hamza Boltaev's IAIS expert
+page and The Diplomat; summaries are short paraphrases, the full texts live at the linked sources.
 Year filter buttons are generated from the dates automatically.
 
 ### Add media / a podcast (`src/data/media.ts`)
@@ -127,11 +132,16 @@ Round circles above the media cards. They scroll sideways automatically and fill
 `video` gets a coloured ring; the first circle plays its video silently in a loop. Tapping opens a fullscreen viewer;
 **View details** opens `link` (Instagram, Telegram, YouTube, any URL). Videos longer than 30 s restart from the beginning
 (`storyMaxSeconds`). Supported `video` sources: YouTube links (watch / youtu.be / shorts) and direct `.mp4` / `.webm`
-(put files in `public/videos/`). Instagram / Telegram posts cannot be embedded – use `cover` (image) + `link`.
+(put files in `public/videos/`). Instagram post / reel links open inside the viewer through Instagram's own embed
+(add a `cover` image for the circle). Telegram and other links cannot be embedded – use `cover` + `link`.
 If the array is empty, nothing is shown.
 
 ### Speaking videos
 In `speaking.ts` add `video: "https://youtu.be/..."` (and/or `url`) to an event. Events without them look unchanged.
+
+### CV / résumé download
+Put the file in `public/cv/` (`Hamza-Boltayev-CV.pdf`, optionally `Hamza-Boltayev-CV-uz.pdf`; names in `src/data/cv.ts`).
+The **Download CV** button (hero, About, Contact) appears automatically once the file exists and stays hidden otherwise.
 
 ### CAPIF
 Hidden by default. Set `showCapif: true` in `src/data/siteConfig.ts` to show it (content in `src/data/profile.ts`).

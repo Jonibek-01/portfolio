@@ -12,8 +12,8 @@ export default function SpeakingTimeline({ events, label }: { events: SpeakingEv
 
   const items: TimelineItem[] = [...events].sort(byDateDesc).map((e) => {
     const video = parseVideo(e.video);
-    const playable = video && video.kind !== "link";
-    const link = isRealUrl(e.url) ? e.url : video?.kind === "link" ? video.src : undefined;
+    const playable = video && (video.kind === "youtube" || video.kind === "file");
+    const link = isRealUrl(e.url) ? e.url : video && !playable ? video.src : undefined;
     const title = l(e.title);
     return {
       id: e.id,

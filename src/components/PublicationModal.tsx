@@ -6,6 +6,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { useUI } from "../hooks/useUI";
 import { formatDate } from "../utils/date";
 import { isRealUrl } from "../utils/links";
+import ArticleBody from "./ArticleBody";
 
 export default function PublicationModal() {
   const { openPublicationId, closePublication } = useUI();
@@ -62,6 +63,13 @@ function ModalBody({ id, onClosed }: { id: string; onClosed: () => void }) {
             <li key={tp} className="chip chip-static">{topic(tp)}</li>
           ))}
         </ul>
+
+        {pub.body && (
+          <section className="article" aria-labelledby="article-heading">
+            <h3 id="article-heading" className="article-title">{t.publications.fullText}</h3>
+            <ArticleBody text={l(pub.body)} />
+          </section>
+        )}
         </div>
 
         <div className="modal-actions">

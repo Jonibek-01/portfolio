@@ -47,9 +47,10 @@ export default function StoryViewer({ stories, start, onClosed }: { stories: Res
     return () => document.removeEventListener("keydown", onKey);
   }, [next, prev]);
 
-  const hasMedia = story.video && story.video.kind !== "link";
+  const hasMedia = story.video && (story.video.kind === "youtube" || story.video.kind === "file"); // sound toggle only for these
+  const isEmbed = story.video?.kind === "instagram";
   const wide = story.video?.kind === "youtube" && !story.video.short; // landscape YouTube video -> wide stage
-  const details = story.link ?? (story.video?.kind === "link" ? story.video.src : undefined);
+  const details = story.link ?? (story.video && (story.video.kind === "link" || story.video.kind === "instagram") ? story.video.src : undefined);
   const cover = story.cover || (story.video?.kind === "youtube" ? youtubeThumb(story.video.id) : undefined);
 
   return (
@@ -84,7 +85,7 @@ export default function StoryViewer({ stories, start, onClosed }: { stories: Res
           </div>
         </div>
 
-        <div className="story-media">
+        <div className={isEmbed ? "story-media is-embed" : "story-media"}>
           <StoryMedia key={story.id} story={story} cover={cover} muted={muted} onProgress={setProgress} onEnd={next} />
         </div>
 
@@ -190,6 +191,11 @@ function StoryMedia({ story, cover, muted, onProgress, onEnd }: { story: Resolve
     frameRef.current?.contentWindow?.postMessage(JSON.stringify({ event: "command", func: muted ? "mute" : "unMute", args: [] }), "*");
   }, [muted, src]);
 
+  // --- Instagram embed: no playback info is available, so the bar stays full and the viewer moves on only by tap ---
+  useEffect(() => {
+    if (src?.kind === "instagram") progRef.current(1);
+  }, [src]);
+
   // --- still image (or link-only video): timed ---
   useEffect(() => {
     if (src && src.kind !== "link") return;
@@ -235,6 +241,9 @@ function StoryMedia({ story, cover, muted, onProgress, onEnd }: { story: Resolve
         allow="autoplay; encrypted-media; picture-in-picture"
       />
     );
+  }
+  if (src?.kind === "instagram") {
+    return <iframe className="story-embed" src={src.embed} title={story.title} allow="autoplay; encrypted-media; fullscreen" scrolling="yes" />;
   }
   return cover ? <img className="story-video" src={cover} alt={story.title} /> : <div className="story-video story-empty" />;
 }

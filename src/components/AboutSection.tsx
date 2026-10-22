@@ -2,6 +2,7 @@ import { images } from "../data/images";
 import { about } from "../data/profile";
 import { useLanguage } from "../hooks/useLanguage";
 import { useReveal } from "../hooks/useReveal";
+import CvButton from "./CvButton";
 import SectionHeading from "./SectionHeading";
 
 export default function AboutSection() {
@@ -42,6 +43,10 @@ export default function AboutSection() {
             <div><dt>{t.about.affiliation}</dt><dd>{t.hero.institute}</dd></div>
             <div><dt>{t.about.focus}</dt><dd>{l(about.focus)}</dd></div>
           </dl>
+
+          <div className="about-cv" data-reveal>
+            <CvButton />
+          </div>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { images } from "../data/images";
 import { useLanguage } from "../hooks/useLanguage";
 import { useUI } from "../hooks/useUI";
+import CvButton from "./CvButton";
 import ErrorBoundary from "./ErrorBoundary";
 import SocialRail from "./SocialRail";
 
@@ -109,6 +110,10 @@ export default function Hero() {
           <p>{t.hero.institute}</p>
           <p className="hero-info-location">{t.hero.location}</p>
         </div>
+      </div>
+
+      <div className="hero-cv" data-hero>
+        <CvButton variant="link" />
       </div>
 
       {/* Desktop: fixed vertical rail on the right, visible while the hero is */}

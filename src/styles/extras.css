@@ -166,3 +166,25 @@ li:nth-child(2) > .topic-tile::before { animation-delay: 0.7s; } li:nth-child(3)
   .story-stage.is-wide { width: 100vw; height: auto; aspect-ratio: 16 / 9; border-radius: 0; }
   .story-head { padding-top: 16px; }
 }
+
+/* ---------- CV download ---------- */
+.hero-cv { position: absolute; right: var(--pad); bottom: 28px; z-index: 2; }
+.cv-link { display: inline-flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
+.cv-link:hover { color: var(--gold); border-color: var(--gold-soft); }
+.cv-link svg { width: 16px; height: 16px; }
+.btn svg { flex-shrink: 0; }
+.about-cv { margin-top: 6px; }
+.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+@media (max-width: 1023px) { .hero-cv { position: static; margin: 22px var(--pad) 0; } }
+
+/* ---------- Full text inside a publication card ---------- */
+.pub-badge { display: inline-block; margin-right: 10px; padding: 2px 8px; border: 1px solid var(--gold-soft); border-radius: 2px; color: var(--gold); font-size: 0.62rem; letter-spacing: 0.16em; }
+.article { margin-top: 8px; padding-top: 26px; border-top: 1px solid var(--line); display: grid; gap: 18px; }
+.article-title { font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+.article-body { display: grid; gap: 18px; max-width: 68ch; }
+.article-body p { color: var(--text); opacity: 0.88; font-size: 1.04rem; line-height: 1.8; }
+.article-body h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; line-height: 1.2; margin-top: 10px; }
+
+/* ---------- Instagram embed story ---------- */
+.story-media.is-embed { inset: 58px 0 88px; background: #fff; }
+.story-embed { width: 100%; height: 100%; border: 0; background: #fff; }

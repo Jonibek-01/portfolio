@@ -13,7 +13,7 @@ export default function LiteVideo({ url, title, poster }: { url?: string; title:
   const { t } = useLanguage();
   const [playing, setPlaying] = useState(false);
   const src = parseVideo(url);
-  if (!src || src.kind === "link") return null;
+  if (!src || src.kind === "link" || src.kind === "instagram") return null;
 
   if (src.kind === "file") {
     return (
